@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cowsay 'Hello World !'
+/usr/games/cowsay 'Hello World !'
