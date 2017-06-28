@@ -1,13 +1,18 @@
-# Inherit from the Ubuntu Trusty image by Scaleway.
-#   This image contains some Scaleway specific scripts
-#   See https://github.com/scaleway/image-ubuntu/blob/master/14.04/Dockerfile
-FROM scaleway/ubuntu:trusty
+## -*- docker-image-name: "scaleway/ubuntu:yakkety" -*-
+FROM scaleway/ubuntu:amd64-yakkety
+# following 'FROM' lines are used dynamically thanks do the image-builder
+# which dynamically update the Dockerfile if needed.
+#FROM scaleway/ubuntu:armhf-yakkety # arch=armv7l
+#FROM scaleway/ubuntu:i386-yakkety  # arch=i386
+#FROM scaleway/ubuntu:amd64-yakkety # arch=x86_64
+#FROM scaleway/ubuntu:mips-yakkety  # arch=mips
+
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
 
 
 # Prepare rootfs for image-builder.
 #   This script prevent aptitude to run services when installed
-RUN /usr/local/sbin/builder-enter
+RUN /usr/local/sbin/scw-builder-enter
 
 
 # Install packages
@@ -22,4 +27,4 @@ COPY ./patches/ /
 
 # Clean rootfs from image-builder.
 #   Revert the builder-enter script
-RUN /usr/local/sbin/builder-leave
+RUN /usr/local/sbin/scw-builder-leave
